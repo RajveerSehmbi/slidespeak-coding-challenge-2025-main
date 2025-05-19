@@ -1,0 +1,7 @@
+export enum UploadStage {
+  CHOOSE_FILE,
+  CONFIRM_UPLOAD,
+  PROCESSING,
+  COMPLETED,
+  ERROR
+}
