@@ -1,11 +1,13 @@
-from flask import Flask
 import logging
+from flask import Flask
+from flask_cors import CORS
 from .extensions import celery_init_app, init_redis
 from .ppt_converter_routes import ppt_converter
 from .services.s3Service import S3Service
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
 
     logging.basicConfig(
         level=logging.INFO,

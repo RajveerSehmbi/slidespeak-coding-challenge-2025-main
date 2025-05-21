@@ -37,16 +37,17 @@ export const PowerPointToPdfConverter: FC<PowerPointToPdfConverterProps> = () =>
         const formData = new FormData();
         formData.append('file', uploadedFile.fileObj);
 
+        console.log(url + "/upload")
         const response = await fetch(url + "/upload", {
             method: 'POST',
             body: formData
         });
         const data = await response.json();
-
         if (!response.ok) {
             throw new Error(data.message);
         }
-        setJobId(data.jobId);
+        console.log(data.job_id)
+        setJobId(data.job_id);
         setCurrentStage(UploadStage.PROCESSING);
     } catch (error: any) {
         console.error(error);

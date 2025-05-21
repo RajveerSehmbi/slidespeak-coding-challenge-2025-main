@@ -47,12 +47,12 @@ def convert_to_pdf(job_id, ppt_path):
 def upload_to_s3(job_id, ppt_path, pdf_path):
     s3_service = current_app.s3_service
     r = current_app.redis
-    ppt_key = job_id + "-PPT"
+    ppt_key = job_id + ".pptx"
     with open(ppt_path, "rb") as f:
         if not s3_service.upload_file_to_s3(f, ppt_key):
             r.set(f"job:{job_id}", json.dumps({"status": JobStatus.FAILED.value}))
 
-    pdf_key = job_id + "-PDF"
+    pdf_key = job_id + ".pdf"
     with open(pdf_path, "rb") as f:
         if not s3_service.upload_file_to_s3(f, pdf_key):
             r.set(f"job:{job_id}", json.dumps({"status": JobStatus.FAILED.value}))
