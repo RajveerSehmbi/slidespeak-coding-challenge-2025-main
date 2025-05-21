@@ -14,7 +14,7 @@ export const CompletionStep: FC<CompletionStepProps> = ({onReset, onDownload}) =
         <div className="flex w-full flex-col items-center gap-1 rounded-lg border border-gray-300 p-4 text-center">
           <PdfIcon/>
           <p className="text-lg font-semibold text-gray-800" data-testid="success-message">
-            File converted succesfully!
+            File converted successfully!
           </p>
         </div>
         <DoubleButton
