@@ -3,3 +3,31 @@ version: '3'
 services:
   unoserver:
     image: libreofficedocker/libreoffice-unoserver:3.19-9c28c22
+    ports:
+      - "2004:2004"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  flask:
+    build: .
+    ports:
+      - "5001:5000"
+    env_file:
+      - .env
+    volumes:
+      - ./tmp:/tmp
+    depends_on:
+      - redis
+      - unoserver
+  celery_worker:
+    build: .
+    command: celery -A make_celery.celery_app worker --loglevel=info
+    env_file:
+      - .env
+    volumes:
+      - ./tmp:/tmp
+    user: "celeryuser:celerygroup"
+    depends_on:
+      - redis
+      - unoserver
